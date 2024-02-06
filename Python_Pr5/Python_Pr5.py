@@ -1,21 +1,37 @@
-﻿nimed=["Mati","Kati","Mati","Mati","Kadri"]
+nimed=["Mati","Kati","Mati","Mati","Kadri"]
 while True:
-    valik=input("Andmete lisamine-add\nAndmete nätamine-show\nAndmete kustutamine-del\nJärjendi pööramine-rev\nAndmete kustutamine-clear\nAndmete sortimine-sort\nAndmete otsing-ots\n")
+    valik=input("Andmete lisamine-add\nAndmete nätamine-show\nAndmete kustutamine-del\nJärjendi pööramine-rev\nAndmete kustutamine-clear\nAndmete sortimine-sort\nAndmete otsing-ots\n").lower
     if valik=="add":
         valik=input("Kas lisame mitu inimest või positsioonile (pos)").lower
         if valik=="mitu":
-            mitu=int(input("Mitu inimest liseme? "))
+            while True:
+                try:
+                    mitu=int(input("Mitu inimest liseme? "))
+                    if mitu>0: 
+                        break
+                    else:
+                        print("On vaja arv suurem kui 0")
+                except:
+                    print("Viga!")
             for i in range(mitu):
-               nimi=input("Sisesta nimi: ")
+               nimi=input("Sisesta nimi: ").capitalize()
                nimed.append(nimi)
-        else:
-            indeks=int(input("Kuhu lisamine? ")).lower
-            nimi=input("Mis nimi: ")
-            nimed.insert(indeks-1,nimi).dict
+        elif valik=="pos":
+            while True:
+                try:
+                    indeks=int(input("Kuhu lisamine? "))
+                    if indeks>0 and indeks<len(nimed): 
+                        break
+                    else:
+                        print("On vaja arv suurem kui 0 ja väiksem kui elentide kogus")
+                except:
+                    print("Viga!")
+            nimi=input("Mis nimi: ").capitalize
+            nimed.insert(indeks-1,nimi)
     elif valik=="show":
         valik=input("Kas kustutame nimi(nimi) või indeksi järgi (ind)?")
         if valik=="nimi":
-            nimi=input("Mis nimi on vaja kustutada? ")
+            nimi=input("Mis nimi on vaja kustutada? ").capitalize()
             kogus=nimed.count(nimi)
             if kogus>0:
                 for i in range(kogus):
@@ -25,7 +41,6 @@ while True:
         else:
             indeks=int(input("Mis on järjekorranumber?"))
             nimed.pop(indeks-1)
-        print(nimed)
     elif valik=="show":
         print(nimed)
     elif valik=="rev":
